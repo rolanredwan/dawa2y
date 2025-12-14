@@ -1,0 +1,8 @@
+File to be renamed to pharmacist.jpg
+    Pharmacist_icon.jpg
+[In Strings, Comments, and Text] Occurrences found in comments, strings and non-code files  (1 occurrence in 1 file)  (1 usage found)
+    Unclassified  (1 usage found)
+        first_flutter_application  (1 usage found)
+              (1 usage found)
+                pubspec.yaml  (1 usage found)
+                    65 - images/pharmacist.jpg
