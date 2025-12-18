@@ -1,13 +1,15 @@
 class Medicine {
-  final String name;
-  final String category;
-  final int stock;
-  final double price;
+  final String scientificName;
+  final String tradName;
+  final String classification;
+  final String quantity;
+  final String price;
 
   Medicine({
-    required this.name,
-    required this.category,
-    required this.stock,
+    required this.scientificName,
+    required this.classification,
+    required this.tradName,
+    required this.quantity,
     required this.price,
   });
 }

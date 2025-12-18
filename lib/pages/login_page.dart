@@ -5,6 +5,9 @@ import 'package:first_flutter_application/pages/pharmacist_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:first_flutter_application/widgets/border.dart';
 import 'package:flutter/material.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
+import '../theme/app_colors.dart';
 import '../widgets/custom_text_filed.dart';
 import '../widgets/primary_button.dart';
 import '../utils/validators.dart';
@@ -31,6 +34,16 @@ class _LoginPageState extends State<LoginPage> {
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
+      // Alert
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.info,
+        title: '',
+        text: 'تم تسجيل الدخول بنجاح!',
+        autoCloseDuration: Duration(seconds: 3),
+        confirmBtnText: 'حسناً',
+        confirmBtnColor: Color(0xECE1BD52),
+      );
       Navigator.of(context).pushReplacementNamed('/pharmacist');
     }
   }
@@ -65,13 +78,13 @@ class _LoginPageState extends State<LoginPage> {
                       //       padding: EdgeInsets.symmetric(vertical: 16),
                       //       shape: AppBorder.rounded(),
                       //     ),
-                      // onPressed: () {
-                          //   Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //       // builder: (context) => AdminPage(),
-                          //     ),
-                          //   );
-                          // },
+                      //     // onPressed: () {
+                      //     //   Navigator.of(context).push(
+                      //     //     MaterialPageRoute(
+                      //     //       builder: (context) => AdminPage(),
+                      //     //     ),
+                      //     //   );
+                      //     // },
                       //     child: Row(
                       //       mainAxisAlignment: MainAxisAlignment.center,
                       //       children: [
@@ -181,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text(
                               'سجل الآن',
                               style: TextStyle(
-                                color: Color(0xFFC9A227),
+                                color: AppColors.gold,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
@@ -200,5 +213,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-

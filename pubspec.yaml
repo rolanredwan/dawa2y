@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  quickalert: ^1.1.0
   flutter_svg: ^2.1.0
   flutter:
     sdk: flutter
@@ -62,6 +63,7 @@ flutter:
     - images/admin.jpg
     - images/capsule-pills.svg
     - images/PinIcon.png
+    - images/success.png
 
 
 

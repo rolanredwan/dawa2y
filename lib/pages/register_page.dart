@@ -1,5 +1,6 @@
 // RegisterPage Class
 import 'package:first_flutter_application/pages/pharmacist_page.dart';
+import 'package:first_flutter_application/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../widgets/border.dart';
@@ -141,7 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   const SizedBox(height: 4),
                   CustomTextField(
-                    hint: 'يجب أن تتجاوز 8 خانات',
+                    hint: 'يجب أن تكون 6 خانات على الأقل ',
                     obscure: true,
                     controller: _passCtrl,
                     validator: Validators.password,
@@ -194,7 +195,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: const Text(
                           'تسجيل الدخول',
                           style: TextStyle(
-                            color: Color(0xFFC9A227),
+                            color: AppColors.gold,
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),

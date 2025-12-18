@@ -8,9 +8,14 @@ import '../widgets/border.dart';
 import '../widgets/custom_text_filed.dart';
 import '../widgets/pharmacyDetailsScreen.dart';
 
-class LandingPage extends StatelessWidget {
-  LandingPage({super.key});
+class LandingPage extends StatefulWidget {
+  const LandingPage({super.key});
 
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
   final List<PharmacyCard> pharmacies = [
     PharmacyCard(
       name: "صيدلية الكنز",
@@ -151,6 +156,7 @@ class LandingPage extends StatelessWidget {
                   CustomTextField(
                     hint: 'أدخل اسم الدواء ...',
                     border: TextFieldBorder.input(),
+                    controller: null,
                   ),
                   Positioned(
                     left: 0,

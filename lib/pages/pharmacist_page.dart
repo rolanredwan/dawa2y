@@ -1,16 +1,36 @@
-import 'package:first_flutter_application/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import '../models/medicine.dart';
 import '../theme/app_colors.dart';
-import '../utils/validators.dart';
 import '../widgets/border.dart';
 import '../widgets/custom_text_filed.dart';
 import '../widgets/primary_button.dart';
-import 'admin_page.dart';
 
-class PharmacistPage extends StatelessWidget {
+class PharmacistPage extends StatefulWidget {
   const PharmacistPage({super.key});
+
+  @override
+  State<PharmacistPage> createState() => _PharmacistPageState();
+}
+
+class _PharmacistPageState extends State<PharmacistPage> {
+  final _tradeNameController = TextEditingController();
+  final _scientificNameController = TextEditingController();
+  final _classificationController = TextEditingController();
+  final _priceController = TextEditingController();
+  final _quantityController = TextEditingController();
+
+  List<Medicine> medicines = [];
+
+  @override
+  void dispose() {
+    _tradeNameController.dispose();
+    _scientificNameController.dispose();
+    _classificationController.dispose();
+    _priceController.dispose();
+    _quantityController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +113,6 @@ class PharmacistPage extends StatelessWidget {
                                 AppColors.gold,
                                 BlendMode.srcIn,
                               ),
-                              // color: AppColors.gold,
                             ),
                             SizedBox(width: 4),
                             const Text(
@@ -111,25 +130,93 @@ class PharmacistPage extends StatelessWidget {
                       const SizedBox(height: 24),
                       Column(
                         children: [
-                          _pharmacistData(
+                          _medicineData(
                             title: 'الاسم التجاري',
                             hint: 'باراسيتامول',
+                            controller: _tradeNameController,
                           ),
-                          _pharmacistData(
+                          _medicineData(
                             title: 'الاسم العلمي',
                             hint: 'أسيتامينوفين',
+                            controller: _scientificNameController,
                           ),
-                          _pharmacistData(title: 'الكمية', hint: '200'),
-                          _pharmacistData(title: 'التصنيف', hint: 'مسكنات'),
-                          _pharmacistData(title: 'السعر', hint: '10'),
+                          _medicineData(
+                            title: 'الكمية',
+                            hint: '200',
+                            controller: _quantityController,
+                          ),
+                          _medicineData(
+                            title: 'التصنيف',
+                            hint: 'مسكنات',
+                            controller: _classificationController,
+                          ),
+                          _medicineData(
+                            title: 'السعر',
+                            hint: '10',
+                            controller: _priceController,
+                          ),
+
                           PrimaryButton(
                             icon: Icons.add,
                             label: 'إضافة دواء جديد',
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                medicines.add(
+                                  Medicine(
+                                    tradName: _tradeNameController.text,
+                                    price: _priceController.text,
+                                    quantity: _quantityController.text,
+                                    scientificName:
+                                        _scientificNameController.text,
+                                    classification:
+                                        _classificationController.text,
+                                  ),
+                                );
+                                _tradeNameController.clear();
+                                _scientificNameController.clear();
+                                _classificationController.clear();
+                                _priceController.clear();
+                                _quantityController.clear();
+                              });
+                            },
                           ),
                         ],
                       ),
                     ],
+                  ),
+                  SizedBox(height: 40),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      border: TableBorder.all(
+                        color: AppColors.gold,
+                        width: 2,
+                        style: BorderStyle.solid,
+                      ),
+                      headingRowColor: WidgetStateProperty.all(AppColors.gold),
+                      headingTextStyle: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                      columns: const [
+                        DataColumn(label: Text('الاسم العلمي')),
+                        DataColumn(label: Text('الاسم التجاري')),
+                        DataColumn(label: Text('التصنيف')),
+                        DataColumn(label: Text('الكمية')),
+                        DataColumn(label: Text('السعر')),
+                      ],
+                      rows: medicines.map((medicine) {
+                        return DataRow(
+                          cells: [
+                            DataCell(Text(medicine.scientificName)),
+                            DataCell(Text(medicine.tradName)),
+                            DataCell(Text(medicine.classification)),
+                            DataCell(Text(medicine.quantity)),
+                            DataCell(Text(medicine.price)),
+                          ],
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ],
               ),
@@ -153,9 +240,33 @@ class PharmacistPage extends StatelessWidget {
         const SizedBox(height: 4),
         CustomTextField(
           hint: hint,
-          // controller: _emailCtrl,
-          validator: Validators.email,
           border: TextFieldBorder.input(),
+          controller: null,
+        ),
+        const SizedBox(height: 32),
+      ],
+    );
+  }
+
+  Widget _medicineData({
+    required String title,
+    required String hint,
+    required TextEditingController controller,
+  }) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+        ),
+        const SizedBox(height: 4),
+        CustomTextField(
+          hint: hint,
+          border: TextFieldBorder.input(),
+          controller: controller,
         ),
         const SizedBox(height: 32),
       ],
