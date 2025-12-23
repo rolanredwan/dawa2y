@@ -1,6 +1,4 @@
 // LoginPage Class
-
-// import 'package:first_flutter_application/pages/admin_page.dart';
 import 'package:first_flutter_application/pages/pharmacist_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:first_flutter_application/widgets/border.dart';
@@ -42,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         text: 'تم تسجيل الدخول بنجاح!',
         autoCloseDuration: Duration(seconds: 3),
         confirmBtnText: 'حسناً',
-        confirmBtnColor: Color(0xECE1BD52),
+        confirmBtnColor: Color(0xECEDCA61),
       );
       Navigator.of(context).pushReplacementNamed('/pharmacist');
     }
@@ -71,38 +69,6 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 32),
                   Row(
                     children: [
-                      // Expanded(
-                      //   child: TextButton(
-                      //     style: TextButton.styleFrom(
-                      //       backgroundColor: Color(0xFFFFFFFF),
-                      //       padding: EdgeInsets.symmetric(vertical: 16),
-                      //       shape: AppBorder.rounded(),
-                      //     ),
-                      //     // onPressed: () {
-                      //     //   Navigator.of(context).push(
-                      //     //     MaterialPageRoute(
-                      //     //       builder: (context) => AdminPage(),
-                      //     //     ),
-                      //     //   );
-                      //     // },
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: [
-                      //         Image.asset(
-                      //           "images/admin.jpg",
-                      //           width: 32,
-                      //           height: 32,
-                      //         ),
-                      //         const SizedBox(width: 8),
-                      //         const Text(
-                      //           'أدمن',
-                      //           style: TextStyle(fontSize: 20),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(width: 8),
                       Expanded(
                         child: TextButton(
                           onPressed: () {

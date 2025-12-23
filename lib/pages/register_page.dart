@@ -3,6 +3,8 @@ import 'package:first_flutter_application/pages/pharmacist_page.dart';
 import 'package:first_flutter_application/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import '../widgets/border.dart';
 import '../widgets/custom_text_filed.dart';
 import '../widgets/primary_button.dart';
@@ -34,8 +36,17 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      // TODO: register logic
-      Navigator.of(context).pop();
+      // Alert
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.info,
+        title: '',
+        text: 'تم تسجيل الدخول بنجاح!',
+        autoCloseDuration: Duration(seconds: 3),
+        confirmBtnText: 'حسناً',
+        confirmBtnColor: Color(0xECEDCA61),
+      );
+      // Navigator.of(context).pop();
     }
   }
 
