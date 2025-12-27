@@ -1,6 +1,8 @@
 import 'package:first_flutter_application/models/pharmacy_screen.dart';
 import 'package:first_flutter_application/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class PharmacyDetails extends StatelessWidget {
   final PharmacyScreen pharmacy;
@@ -89,6 +91,29 @@ class PharmacyDetails extends StatelessWidget {
                   title: "الهاتف",
                   buttonText: "اتصل الآن",
                   icon: Icons.phone,
+                  onPressed: () {
+                    //async
+                    String phoneNumber = pharmacy.phoneNO.replaceAll(
+                      RegExp(r'[^0-9]'),
+                      '',
+                    );
+                    String url = "tel:$phoneNumber";
+                    launchUrlString(
+                      url,
+                      mode: LaunchMode.externalApplication,
+                    );
+                    //
+                    // try {
+                    //   await launchUrlString(
+                    //     url,
+                    //     mode: LaunchMode.externalApplication,
+                    //   );
+                    // } catch (e) {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(content: Text('لا يمكن فتح تطبيق الاتصال')),
+                    //   );
+                    // }
+                  },
                 ),
                 const SizedBox(height: 24),
                 _buildInfoCard(
@@ -96,6 +121,28 @@ class PharmacyDetails extends StatelessWidget {
                   title: "واتساب",
                   buttonText: "تواصل واتساب",
                   icon: Icons.chat_bubble,
+                  onPressed: () {
+                    //async
+                    String phoneNumber = pharmacy.whatsAppNo.replaceAll(
+                      RegExp(r'[^0-9]'),
+                      '',
+                    );
+                    String url = "https://wa.me/$phoneNumber";
+                    launchUrlString(
+                      url,
+                      mode: LaunchMode.externalApplication,
+                    );
+                    // try {
+                    //   await launchUrlString(
+                    //     url,
+                    //     mode: LaunchMode.externalApplication,
+                    //   );
+                    // } catch (e) {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(content: Text('لا يمكن فتح واتساب')),
+                    //   );
+                    // }
+                  },
                 ),
                 const SizedBox(height: 30),
                 _buildAboutAndTitle(
@@ -136,6 +183,7 @@ class PharmacyDetails extends StatelessWidget {
     required String value,
     required String buttonText,
     required IconData icon,
+    required VoidCallback onPressed,
   }) {
     return Container(
       width: double.infinity,
@@ -176,7 +224,7 @@ class PharmacyDetails extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: onPressed,
               label: Text(
                 buttonText,
                 style: TextStyle(
