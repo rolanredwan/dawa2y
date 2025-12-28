@@ -17,6 +17,11 @@ class PharmacistPage extends StatefulWidget {
 }
 
 class _PharmacistPageState extends State<PharmacistPage> {
+  final _pharmacistNameController = TextEditingController();
+  final _pharmacyNameController = TextEditingController();
+  final _pharmacyNoController = TextEditingController();
+  final _workHoursController = TextEditingController();
+
   final _tradeNameController = TextEditingController();
   final _scientificNameController = TextEditingController();
   final _classificationController = TextEditingController();
@@ -35,6 +40,12 @@ class _PharmacistPageState extends State<PharmacistPage> {
     _classificationController.dispose();
     _priceController.dispose();
     _quantityController.dispose();
+
+    _pharmacistNameController.dispose();
+    _pharmacyNameController.dispose();
+    _pharmacyNoController.dispose();
+    _workHoursController.dispose();
+
     super.dispose();
   }
 
@@ -58,8 +69,6 @@ class _PharmacistPageState extends State<PharmacistPage> {
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
           child: SingleChildScrollView(
-            // child: Form(
-            //   key: _formKey,
             child: Column(
               children: [
                 Align(
@@ -89,20 +98,24 @@ class _PharmacistPageState extends State<PharmacistPage> {
                         title: 'اسم الصيدلية',
                         hint: 'صيدلية الكنز',
                         validator: Validators.required,
+                        controller: _pharmacyNameController,
                       ),
                       _pharmacistData(
                         title: 'اسم الصيدلاني',
                         hint: 'أحمد محمد',
+                        controller: _pharmacistNameController,
                         validator: Validators.required,
                       ),
                       _pharmacistData(
                         title: 'رقم الصيدلية',
                         hint: '059 000 0000',
+                        controller: _pharmacyNoController,
                         validator: Validators.required,
                       ),
                       _pharmacistData(
                         title: 'ساعات العمل',
                         hint: ' 9AM - 9PM',
+                        controller: _workHoursController,
                         validator: Validators.required,
                       ),
                       PrimaryButton(
@@ -119,6 +132,10 @@ class _PharmacistPageState extends State<PharmacistPage> {
                               confirmBtnText: 'حسناً',
                               confirmBtnColor: Color(0xECEDCA61),
                             );
+                            _pharmacyNameController.clear();
+                            _pharmacistNameController.clear();
+                            _pharmacyNoController.clear();
+                            _workHoursController.clear();
                           }
                         },
                       ),
@@ -278,7 +295,7 @@ class _PharmacistPageState extends State<PharmacistPage> {
   Widget _pharmacistData({
     required String title,
     required String hint,
-    // required TextEditingController controller,
+    required TextEditingController controller,
     required String? Function(String? value) validator,
   }) {
     return Column(
@@ -295,8 +312,7 @@ class _PharmacistPageState extends State<PharmacistPage> {
           validator: validator,
           hint: hint,
           border: TextFieldBorder.input(),
-          controller: null,
-          // controller: controller,
+          controller: controller,
         ),
         const SizedBox(height: 32),
       ],

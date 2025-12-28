@@ -86,6 +86,27 @@ class _LandingPageState extends State<LandingPage> {
     ),
   ];
 
+  final List<Map<String, dynamic>> medicines = [
+    {
+      'name': 'بنادول اكسترا',
+      'strength': '500mg',
+      'pharmacies': ['صيدلية الكنز', 'صيدلية القصواء'],
+    },
+    {
+      'name': 'فولتارين',
+      'strength': '50mg',
+      'pharmacies': ['صيدلية مسلم'],
+    },
+  ];
+
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     const primaryGoldColor = AppColors.gold;
@@ -156,7 +177,7 @@ class _LandingPageState extends State<LandingPage> {
                   CustomTextField(
                     hint: 'أدخل اسم الدواء ...',
                     border: TextFieldBorder.input(),
-                    controller: null,
+                    controller: _searchController,
                   ),
                   Positioned(
                     left: 0,
@@ -165,7 +186,7 @@ class _LandingPageState extends State<LandingPage> {
                     child: Container(
                       margin: const EdgeInsets.only(right: 8),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: _onSearch,
                         style: TextButton.styleFrom(
                           backgroundColor: primaryGoldColor,
                           shape: RoundedRectangleBorder(
@@ -306,6 +327,82 @@ class _LandingPageState extends State<LandingPage> {
               ],
             ),
             const SizedBox(height: 40),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _onSearch() {
+    final text = _searchController.text.trim();
+    bool found = medicines.any((medicine) => medicine['name'] == text);
+    if (text.isEmpty) return;
+
+    if (found) {
+      _showAvailable();
+    } else {
+      _showNotAvailable();
+    }
+    _searchController.clear();
+  }
+
+  void _showAvailable() {
+    String searchName = _searchController.text.trim();
+    final medicine = medicines.firstWhere(
+      (m) => m['name'] == searchName,
+      orElse: () => {'name': 'غير موجود', 'strength': ''},
+    );
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Icon(Icons.check_circle, color: Colors.green, size: 60),
+            const SizedBox(height: 16),
+            const Text(
+              'متوفر',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '${medicine['name']} - ${medicine['strength']}',
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showNotAvailable() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: const [
+            Icon(Icons.cancel, color: Colors.red, size: 60),
+            SizedBox(height: 16),
+            Text(
+              'غير متوفر',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            Text('لم يتم العثور على هذا الدواء', textAlign: TextAlign.center),
           ],
         ),
       ),
