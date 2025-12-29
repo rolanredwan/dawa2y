@@ -373,7 +373,7 @@ class _LandingPageState extends State<LandingPage> {
             ),
             const SizedBox(height: 8),
             Text(
-              '${medicine['name']} - ${medicine['strength']}',
+              '${medicine['name']} - ${medicine['strength']} - ${medicine['pharmacies']}',
               textAlign: TextAlign.center,
             ),
           ],

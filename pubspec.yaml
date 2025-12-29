@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_launcher_icons: ^0.13.1
   quickalert: ^1.1.0
   flutter_svg: ^2.1.0
   flutter:
@@ -35,6 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^6.3.2
   url_launcher: ^6.3.2
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/icon_app.jpeg"
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +71,7 @@ flutter:
     - images/capsule-pills.svg
     - images/PinIcon.png
     - images/success.png
+    - images/icon_app.jpeg
 
 
 
